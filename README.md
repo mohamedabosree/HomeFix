@@ -13,6 +13,7 @@ HOMEFIX_APP/
 │   ├── admin_db.php          
 │   ├── login_handler.php     
 │   ├── register_handler.php 
+
 │   └── profile_handler.php  
 ├── frontend/               
 │   ├── index.php            
