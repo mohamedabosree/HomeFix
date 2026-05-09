@@ -1,5 +1,6 @@
 # HomeFix
 Home maintenance booking platform.
+
 / (Root Directory)
 ├── index.php               
 ├── auth.php               
