@@ -1,8 +1,10 @@
 HOMEFIX_APP/
 │
+
 ├── index.php                
 │
 ├── backend/ 
+
 │   ├── db.php             
 │   ├── schema.sql            
 │   ├── auth.php              
