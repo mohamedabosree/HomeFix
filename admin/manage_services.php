@@ -1,14 +1,12 @@
 <?php
-/* HOMEFIX ADMIN - SERVICE MANAGEMENT (WEEK 3 CRUD)
- * Path: HomeFix/admin/manage_services.php
- */
+
 
 require_once '../backend/auth.php';
-require_once '../backend/db.php'; // Using main DB connection
+require_once '../backend/db.php'; 
 
-// Find this section at the top of your admin files:
+
 if (!isAdmin()) {
-    // Change this line:
+
     header("Location: ../Frontend/auth.php"); 
     exit;
 }
@@ -16,7 +14,7 @@ if (!isAdmin()) {
 global $connection;
 $error = ''; $success = ''; $edit_id = null; $edit_service = null;
 
-// --- DELETE OPERATION (CRUD: D) ---
+
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     if (mysqli_query($connection, "DELETE FROM services WHERE id = $id")) {
@@ -26,14 +24,14 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     }
 }
 
-// --- READ FOR EDIT (CRUD: R) ---
+
 if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
     $edit_id = (int)$_GET['edit'];
     $edit_query = mysqli_query($connection, "SELECT * FROM services WHERE id = $edit_id");
     $edit_service = mysqli_fetch_assoc($edit_query);
 }
 
-// --- CREATE & UPDATE OPERATIONS (CRUD: C & U) ---
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cat_id = (int)$_POST['category_id'];
     $name = mysqli_real_escape_string($connection, $_POST['name']);
@@ -43,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $service_id = $_POST['service_id'] ?? '';
 
     if (empty($service_id)) {
-        // CREATE
+        
         $query = "INSERT INTO services (category_id, name, description, price, image_icon) VALUES ($cat_id, '$name', '$desc', $price, '$icon')";
         $success_msg = "New service successfully injected.";
     } else {
-        // UPDATE
+       
         $id = (int)$service_id;
         $query = "UPDATE services SET category_id=$cat_id, name='$name', description='$desc', price=$price, image_icon='$icon' WHERE id=$id";
         $success_msg = "Service parameters updated.";
@@ -61,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Corrected line 65 to match your schema naming conventions
+
 $services = mysqli_query($connection, "SELECT s.*, c.category_name as cat_name 
       FROM services s 
     JOIN categories c ON s.category_id = c.category_id 
