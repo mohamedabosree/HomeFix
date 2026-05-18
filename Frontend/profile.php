@@ -1,8 +1,5 @@
 <?php
-/* FRONTEND PROFILE & SETTINGS
- * Displays the user dashboard, location data, and dynamic loyalty points.
- * Updated to display strict session data required by instructor.
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/db.php'; 
