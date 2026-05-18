@@ -1,21 +1,19 @@
 <?php
-/* HOMEFIX ADMIN - WARRANTY MANAGEMENT
- * Audit panel for tracking active and expired post-service guarantees.
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/db.php';
 
-// Find this section at the top of your admin files:
+
 if (!isAdmin()) {
-    // Change this line:
+   
     header("Location: ../Frontend/auth.php"); 
     exit;
 }
 
 global $connection;
 
-// Execute specific 4-table relational join to map warranty data
+
 $query = "SELECT 
             w.warranty_id, w.start_date, w.end_date,
             b.id as booking_id, b.status,
