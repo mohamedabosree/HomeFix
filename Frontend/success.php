@@ -1,7 +1,5 @@
 <?php
-/* FRONTEND BOOKING CONFIRMATION
- * Displays the transaction receipt and next steps for the user.
- */
+
 
 require_once '../backend/auth.php';
 
