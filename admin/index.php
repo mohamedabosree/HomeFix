@@ -1,13 +1,10 @@
 <?php
-/* ADMINISTRATIVE DASHBOARD - FULL SUITE
- * Centralized control panel for the 10-table HomeFix architecture.
- * Path: HomeFix/admin/index.php
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/db.php';
 
-// Strictly enforce Admin-only access
+
 if (!isAdmin()) {
     header("Location: ../Frontend/auth.php"); 
     exit;
@@ -15,16 +12,15 @@ if (!isAdmin()) {
 
 global $connection;
 
-// --- DYNAMIC METRICS ---
-// Total Users
+
 $user_count = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COUNT(*) as total FROM users"))['total'];
-// Total Technicians
+
 $tech_count = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COUNT(*) as total FROM technicians"))['total'];
-// Total Revenue (Financial Ledger)
+
 $revenue = mysqli_fetch_assoc(mysqli_query($connection, "SELECT SUM(price) as total FROM services s JOIN bookings b ON s.id = b.service_id"))['total'] ?? 0;
-// Pending Payments
+
 $pending_pay = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COUNT(*) as total FROM payments WHERE status = 'pending'"))['total'];
-// Active Warranties
+
 $active_warranties = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COUNT(*) as total FROM warranties WHERE end_date >= CURDATE()"))['total'];
 ?>
 <!DOCTYPE html>
