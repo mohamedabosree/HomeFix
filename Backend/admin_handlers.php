@@ -1,7 +1,5 @@
 <?php
-/* CENTRALIZED ADMIN CRUD HANDLER
- * Processes all Create, Update, and Delete actions for the dashboard.
- */
+
 require_once 'auth.php';
 require_once 'db.php';
 
@@ -12,7 +10,7 @@ if (!isLoggedIn() || !isAdmin()) {
 
 global $connection;
 
-// --- SERVICE CRUD ---
+
 if (isset($_POST['add_service'])) {
     $name = mysqli_real_escape_string($connection, $_POST['name']);
     $desc = mysqli_real_escape_string($connection, $_POST['description']);
@@ -28,7 +26,7 @@ if (isset($_GET['delete_service'])) {
     header("Location: ../admin/manage_services.php?success=deleted");
 }
 
-// --- USER CRUD ---
+
 if (isset($_GET['toggle_role'])) {
     $id = (int)$_GET['toggle_role'];
     $current = mysqli_fetch_assoc(mysqli_query($connection, "SELECT role FROM users WHERE id = '$id'"))['role'];
@@ -37,7 +35,7 @@ if (isset($_GET['toggle_role'])) {
     header("Location: ../admin/manage_users.php?success=role_updated");
 }
 
-// --- BOOKING CRUD ---
+
 if (isset($_POST['update_booking'])) {
     $id = (int)$_POST['booking_id'];
     $status = mysqli_real_escape_string($connection, $_POST['status']);
