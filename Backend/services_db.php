@@ -1,21 +1,12 @@
 <?php
-/* BACKEND SERVICES DATABASE MODULE
- * Handles data retrieval for the HomeFix service catalog.
- * Updated for the 10-Table ERD Architecture.
- */
 
-// Require the database connection
 require_once '../backend/db.php';
 
-/**
- * Retrieves all available services joined with their category taxonomy.
- * Used to populate the frontend service catalog and booking dropdowns.
- * * @return array An array of associative arrays containing categorized service data.
- */
+
 function getAllServices() {
     global $connection;
     
-    // Select required columns and resolve the category_id via LEFT JOIN
+   
     $query = "SELECT 
                 s.id, 
                 s.name, 
@@ -41,11 +32,7 @@ function getAllServices() {
     return $services;
 }
 
-/**
- * Retrieves a specific service by its ID, including its category.
- * * @param int $id The ID of the service to retrieve.
- * @return array|null An associative array of the service data, or null if not found.
- */
+
 function getServiceById($id) {
     global $connection;
 
