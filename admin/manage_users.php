@@ -1,14 +1,12 @@
 <?php
-/* HOMEFIX ADMIN - USER MANAGEMENT (WEEK 3 CRUD)
- * Path: HomeFix/admin/manage_users.php
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/db.php';
 
-// Find this section at the top of your admin files:
+
 if (!isAdmin()) {
-    // Change this line:
+    
     header("Location: ../Frontend/auth.php"); 
     exit;
 }
@@ -16,7 +14,7 @@ if (!isAdmin()) {
 global $connection;
 $error = ''; $success = '';
 
-// --- UPDATE OPERATION: TOGGLE ROLE (CRUD: U) ---
+
 if (isset($_GET['toggle_role']) && is_numeric($_GET['toggle_role'])) {
     $id = (int)$_GET['toggle_role'];
     if ($id == $_SESSION['user_id']) {
@@ -32,7 +30,7 @@ if (isset($_GET['toggle_role']) && is_numeric($_GET['toggle_role'])) {
     }
 }
 
-// --- DELETE OPERATION (CRUD: D) ---
+
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     if ($id == $_SESSION['user_id']) {
@@ -44,7 +42,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     }
 }
 
-// FETCH DATA (CRUD: R) - Join with locations table for Geographic Anchors
+
 $users_query = "SELECT u.*, l.city, l.street_name 
                 FROM users u 
                 LEFT JOIN locations l ON u.id = l.user_id 
