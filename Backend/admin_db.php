@@ -1,15 +1,9 @@
 <?php
-/* BACKEND ADMIN DATABASE MODULE
- * Handles full CRUD operations for the HomeFix administrative panel.
- * Updated for the 10-Table ERD Architecture.
- * Path: HomeFix/backend/admin_db.php
- */
+
 
 require_once 'db.php';
 
-// ==========================================
-// 1. SERVICES MANAGEMENT
-// ==========================================
+
 
 function getAllServicesAdmin() {
     global $connection;
@@ -66,13 +60,11 @@ function deleteService($id) {
     return mysqli_query($connection, $query);
 }
 
-// ==========================================
-// 2. USER MANAGEMENT
-// ==========================================
+
 
 function getAllUsers() {
     global $connection;
-    // Structural Fix applied: Join via ON u.id = l.user_id
+   
     $query = "SELECT u.id, u.name, u.email, u.role, u.created_at, l.city, l.street_name 
               FROM users u 
               LEFT JOIN locations l ON u.id = l.user_id 
@@ -95,9 +87,7 @@ function deleteUser($id) {
     return mysqli_query($connection, $query);
 }
 
-// ==========================================
-// 3. BOOKINGS MANAGEMENT
-// ==========================================
+
 
 function getAllBookings() {
     global $connection;
@@ -155,21 +145,19 @@ function updateBookingStatus($id, $status, $tech_id = null) {
             $u_id = $data['user_id'];
             $points = floor($data['price'] * 0.1);
             
-            // Insert 30-Day Warranty
+           
             $start = date('Y-m-d');
             $end = date('Y-m-d', strtotime('+30 days'));
             mysqli_query($connection, "INSERT INTO warranties (booking_id, start_date, end_date) VALUES ('$safe_id', '$start', '$end')");
             
-            // Insert Loyalty Points
+            
             mysqli_query($connection, "INSERT INTO loyalty_points (user_id, booking_id, points_amount) VALUES ('$u_id', '$safe_id', '$points')");
         }
     }
     return $result;
 }
 
-// ==========================================
-// 4. CATEGORIES & TECHNICIANS MANAGEMENT
-// ==========================================
+
 
 function getAllCategories() {
     global $connection;
@@ -187,7 +175,7 @@ function getAllCategories() {
 
 function getAllTechnicians() {
     global $connection;
-    // Technicians table still maintains location_id as its distinct anchor constraint
+   
     $query = "SELECT t.tech_id, t.name, t.phone, t.specialty, t.availability_status, l.city, l.street_name 
               FROM technicians t
               LEFT JOIN locations l ON t.location_id = l.location_id
