@@ -1,16 +1,15 @@
 <?php
 /* HOMEFIX ADMIN - PAYMENT MANAGEMENT
  * Financial audit board for clearing and tracking service transactions.
+ * Path: HomeFix/admin/manage_payments.php
  */
 
 require_once '../backend/auth.php';
 require_once '../backend/admin_db.php';
 require_once '../backend/db.php';
 
-// Find this section at the top of your admin files:
 if (!isAdmin()) {
-    // Change this line:
-    header("Location: ../Frontend/auth.php"); 
+    header("Location: ../Frontend/auth.php");
     exit;
 }
 
@@ -31,7 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['payment_id'], $_POST[
 
 global $connection;
 $payments = [];
-if ($result = mysqli_query($connection, "SELECT * FROM payments ORDER BY payment_id DESC")) {
+
+// Relational Query Fix: Connects payments to bookings, then to users to retrieve the client name
+$query = "SELECT p.*, u.name as user_name 
+          FROM payments p 
+          JOIN bookings b ON p.booking_id = b.id 
+          JOIN users u ON b.user_id = u.id 
+          ORDER BY p.payment_id DESC";
+
+if ($result = mysqli_query($connection, $query)) {
     while ($row = mysqli_fetch_assoc($result)) {
         $payments[] = $row;
     }
