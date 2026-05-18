@@ -1,15 +1,11 @@
 <?php
-/* FRONTEND LANDING PAGE
- * Synchronized with the index.html layout.
- * Integrated with the 10-table ERD for dynamic points and services.
- */
 
-// Reach back to the root backend folder
+
 require_once '../backend/auth.php';
 require_once '../backend/db.php';
 require_once '../backend/services_db.php';
 
-// Calculate Dynamic Loyalty Points if authenticated
+
 $total_points = 0;
 if (isLoggedIn()) {
     global $connection;
@@ -21,7 +17,7 @@ if (isLoggedIn()) {
     }
 }
 
-// Fetch services from the database to feature on the homepage
+
 $all_services = getAllServices();
 $featured_services = array_slice($all_services, 0, 6);
 ?>
