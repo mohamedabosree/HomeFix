@@ -1,14 +1,12 @@
 <?php
-/* HOMEFIX ADMIN - BOOKING MANAGEMENT
- * Dispatch board for reviewing service requests, assigning technicians, and finalizing operational statuses.
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/admin_db.php';
 
-// Find this section at the top of your admin files:
+
 if (!isAdmin()) {
-    // Change this line:
+   
     header("Location: ../Frontend/auth.php"); 
     exit;
 }
