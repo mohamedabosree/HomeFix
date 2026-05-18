@@ -1,7 +1,4 @@
-/**
- * FRONTEND SCRIPT MODULE
- * Executes client-side interactions, cart state management, and theme persistence.
- */
+
 
 let cartTotal = 0;
 let cartItemsCount = 0;
@@ -19,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const toggleBtn = document.getElementById('theme-toggle');
             const htmlElement = document.documentElement;
 
-            // Load persisted theme
+            
             const savedTheme = localStorage.getItem('homefix-theme');
             if (savedTheme) {
                 htmlElement.setAttribute('data-bs-theme', savedTheme);
@@ -49,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         formValidator() {
-            // Fetch all forms requiring Bootstrap validation
+           
             const forms = document.querySelectorAll('.needs-validation');
 
             Array.from(forms).forEach(form => {
@@ -64,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         navLinkHighlighter() {
-            // Dynamically highlight active navigation paths
+           
             const currentPath = window.location.pathname.split("/").pop();
             const navLinks = document.querySelectorAll('.nav-link');
 
@@ -89,11 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Initialize application logic
+    
     HomeFixApp.init();
 });
 
-// UI Hover Effects
+
 window.hoverButton = function(element) {
     if (!element) return;
     element.style.transform = "scale(1.05)";
@@ -112,7 +109,7 @@ window.changeBorder = function(element) {
     setTimeout(() => { element.style.border = "none"; }, 1000);
 };
 
-// Global Theme Toggle Mechanism
+
 window.toggleDarkMode = function() {
     const htmlTag = document.documentElement;
     const currentTheme = htmlTag.getAttribute('data-bs-theme');
@@ -131,7 +128,7 @@ window.toggleDarkMode = function() {
     }
 };
 
-// Cart Injection Mechanism
+
 window.addToCart = function(serviceName, price) {
     const cartItemsDiv = document.getElementById('cart-items');
     const cartCountSpan = document.getElementById('cart-count');
@@ -139,12 +136,12 @@ window.addToCart = function(serviceName, price) {
 
     if (!cartItemsDiv || !cartCountSpan || !cartTotalSpan) return;
 
-    // Clear placeholder text on first injection
+    
     if (cartItemsCount === 0) {
         cartItemsDiv.innerHTML = '';
     }
 
-    // Inject service item
+  
     cartItemsDiv.innerHTML += `
         <div class="d-flex justify-content-between text-dark border-bottom pb-2 mb-2">
             <span class="fw-bold">${serviceName}</span>
@@ -152,15 +149,15 @@ window.addToCart = function(serviceName, price) {
         </div>
     `;
 
-    // Update operational state
+    
     cartItemsCount++;
     cartTotal += price;
 
-    // Update UI
+   
     cartCountSpan.innerHTML = cartItemsCount;
     cartTotalSpan.innerHTML = cartTotal + ' EGP';
     
-    // Trigger Bootstrap Offcanvas
+   
     const offcanvasElement = document.getElementById('cartOffcanvas');
     if (offcanvasElement && typeof bootstrap !== 'undefined') {
         let cartOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement) || new bootstrap.Offcanvas(offcanvasElement);
@@ -168,7 +165,7 @@ window.addToCart = function(serviceName, price) {
     }
 };
 
-// Newsletter Subscription Mechanism
+
 window.showMessage = function(event) {
     event.preventDefault();
     alert("Subscription executed successfully. Check your email for verification.");
