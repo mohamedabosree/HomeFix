@@ -1,10 +1,8 @@
 <?php
-/* BACKEND REGISTRATION HANDLER
- * Processes new account sign-ups, including geographic anchors.
- */
+
 
 require_once 'auth.php';
-require_once 'db.php'; // Required for global $connection
+require_once 'db.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     global $connection;
@@ -28,11 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    // Step 1: Create the user account
+   
     $new_user_id = registerUser($name, $email, $password);
     
     if ($new_user_id) {
-        // Step 2: Establish the Geographic Anchor mapping to user_id
+       
         $safe_city = mysqli_real_escape_string($connection, $city);
         $safe_street = mysqli_real_escape_string($connection, $street);
         
