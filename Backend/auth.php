@@ -1,8 +1,5 @@
 <?php
-/* BACKEND AUTHENTICATION MODULE
- * Handles user sessions, login, registration, and role verification.
- * Updated to integrate strict academic session flags and timestamps.
- */
+
 
 require_once __DIR__ . '/db.php';
 
@@ -15,19 +12,19 @@ function loginUser($email, $password) {
     $safe_email = mysqli_real_escape_string($connection, $email);
     $safe_pass = mysqli_real_escape_string($connection, $password);
     
-    // Instructor logic: Query checks both username and password directly
+  
     $query = "SELECT id, name, email, role, picture FROM users WHERE email = '$safe_email' AND password = '$safe_pass' LIMIT 1";
     
-    // Send SQL query to DB server
+    
     $result = mysqli_query($connection, $query);
     
-    // Fetch data from DB as array
+   
     if ($row = mysqli_fetch_array($result)) {
-        // Explicit session flags and timestamps
+       
         $_SESSION["Login"] = "YES";
         $_SESSION["datetime"] = date("h:i:s - D, d/M/Y");
         
-        // Retain specific data for platform dashboard
+       
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['name'] = $row['name'];
         $_SESSION['email'] = $row['email'];
@@ -35,7 +32,7 @@ function loginUser($email, $password) {
         $_SESSION['picture'] = $row['picture'] ?? 'default.png';
         return true;
     } else {
-        // Explicit denial flag
+        
         $_SESSION["Login"] = "NO";
         return false;
     }
@@ -67,7 +64,7 @@ function logoutUser() {
 }
 
 function isLoggedIn() {
-    // Check against the instructor's specific login flag
+    
     return isset($_SESSION["Login"]) && $_SESSION["Login"] === "YES";
 }
 
