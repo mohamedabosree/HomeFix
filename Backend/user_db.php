@@ -4,7 +4,7 @@
  * Updated for the 10-Table ERD Architecture (Location Integration).
  */
 
-require_once __DIR__ . '/db.php';
+require_once '../backend/db.php';
 
 /**
  * Retrieves a user's complete profile, joined with their geographic location.
