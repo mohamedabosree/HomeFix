@@ -1,8 +1,5 @@
 <?php
-/* HOMEFIX ADMIN - PAYMENT MANAGEMENT
- * Financial audit board for clearing and tracking service transactions.
- * Path: HomeFix/admin/manage_payments.php
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/admin_db.php';
@@ -31,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['payment_id'], $_POST[
 global $connection;
 $payments = [];
 
-// Relational Query Fix: Connects payments to bookings, then to users to retrieve the client name
+
 $query = "SELECT p.*, u.name as user_name 
           FROM payments p 
           JOIN bookings b ON p.booking_id = b.id 
