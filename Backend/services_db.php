@@ -5,7 +5,7 @@
  */
 
 // Require the database connection
-require_once __DIR__ . '/db.php';
+require_once '../backend/db.php';
 
 /**
  * Retrieves all available services joined with their category taxonomy.
