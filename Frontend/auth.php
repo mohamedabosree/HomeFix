@@ -1,8 +1,4 @@
 <?php
-/* FRONTEND AUTHENTICATION GATEWAY
- * Unified interface for user login and account registration.
- * Enhanced for professional-grade UI/UX with geographic anchors.
- */
 
 require_once '../backend/auth.php';
 
@@ -192,7 +188,7 @@ $active_tab = !empty($register_error) ? 'register' : 'login';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Bootstrap validation trigger
+       
         (function () {
             'use strict'
             var forms = document.querySelectorAll('.needs-validation')
