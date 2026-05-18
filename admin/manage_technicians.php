@@ -1,14 +1,12 @@
 <?php
-/* HOMEFIX ADMIN - TECHNICIAN MANAGEMENT
- * Controls staff allocation, geographic assignment, and operational status.
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/admin_db.php';
 
-// Find this section at the top of your admin files:
+
 if (!isAdmin()) {
-    // Change this line:
+  
     header("Location: ../Frontend/auth.php"); 
     exit;
 }
