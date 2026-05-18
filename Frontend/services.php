@@ -1,15 +1,13 @@
 <?php
-/* FRONTEND SERVICES CATALOG
- * Displays available HomeFix services dynamically, grouped by taxonomic category.
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/services_db.php';
 
-// Fetch the catalog integrated with category taxonomy
+
 $services = getAllServices();
 
-// Restructure the flattened SQL array into a multidimensional array grouped by category
+
 $categorized_services = [];
 foreach ($services as $service) {
     $category = $service['category_name'] ?? 'Uncategorized Services';
