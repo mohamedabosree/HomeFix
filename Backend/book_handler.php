@@ -1,7 +1,5 @@
 <?php
-/* BACKEND BOOKING HANDLER
- * Processes service requests and initializes financial tracking.
- */
+
 
 require_once 'auth.php';
 require_once 'db.php';
@@ -40,19 +38,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $safe_desc = mysqli_real_escape_string($connection, $problem_description);
     $safe_method = mysqli_real_escape_string($connection, $payment_method);
 
-    // ERD Requirement: Retrieve exact service price for the payments ledger
+    
     $price_query = mysqli_query($connection, "SELECT price FROM services WHERE id = '$safe_service'");
     $service_data = mysqli_fetch_assoc($price_query);
     $amount = $service_data['price'] ?? 0;
 
-    // Transaction Phase 1: Inject Booking
+    
     $query = "INSERT INTO bookings (user_id, service_id, phone, booking_date, problem_description, status) 
               VALUES ('$safe_user', '$safe_service', '$safe_phone', '$safe_date', '$safe_desc', 'pending')";
 
     if (mysqli_query($connection, $query)) {
         $booking_id = mysqli_insert_id($connection);
         
-        // Transaction Phase 2: Inject Financial Record
+        
         $pay_query = "INSERT INTO payments (booking_id, amount, payment_method, status) 
                       VALUES ('$booking_id', '$amount', '$safe_method', 'pending')";
         mysqli_query($connection, $pay_query);
