@@ -1,14 +1,12 @@
 <?php
-/* HOMEFIX ADMIN - REVIEW MANAGEMENT
- * Moderation board for customer feedback and quality assurance.
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/db.php';
 
-// Find this section at the top of your admin files:
+
 if (!isAdmin()) {
-    // Change this line:
+    
     header("Location: ../Frontend/auth.php"); 
     exit;
 }
@@ -16,14 +14,13 @@ if (!isAdmin()) {
 global $connection;
 $success = '';
 
-// Execute deletion
+
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     mysqli_query($connection, "DELETE FROM reviews WHERE review_id = '$id'");
     $success = "Review purged from the database.";
 }
 
-// Map reviews to users and specific service transactions
 $query = "SELECT 
             r.review_id, r.rating, r.comment,
             b.id as booking_id,
