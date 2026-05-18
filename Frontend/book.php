@@ -1,14 +1,10 @@
 <?php
-/* FRONTEND BOOKING INTERFACE
- * Captures service requests and financial preferences.
- * Path: HomeFix/Frontend/book.php
- */
+
 
 require_once '../backend/auth.php';
 require_once '../backend/services_db.php';
-require_once '../backend/db.php'; // Required to fetch local user context coordinates
+require_once '../backend/db.php'; 
 
-// Strictly enforce authentication
 if (!isLoggedIn()) {
     $_SESSION['login_error'] = "Authentication required. Please log in to book a service.";
     header("Location: auth.php");
@@ -18,7 +14,7 @@ if (!isLoggedIn()) {
 global $connection;
 $client_id = (int)$_SESSION['user_id'];
 
-// Secure geographic retrieval matching the updated normalization schema
+
 $geo_query = "SELECT city, street_name FROM locations WHERE user_id = '$client_id' LIMIT 1";
 $geo_result = mysqli_query($connection, $geo_query);
 $geo_data = mysqli_fetch_assoc($geo_result);
@@ -30,7 +26,6 @@ $services = getAllServices();
 $booking_error = $_SESSION['booking_error'] ?? '';
 unset($_SESSION['booking_error']);
 
-// Group services by taxonomic category for the dropdown interface
 $grouped_services = [];
 foreach ($services as $service) {
     $cat = $service['category_name'] ?? 'Uncategorized';
